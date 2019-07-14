@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Domain\Request;
+namespace Domain\Picture;
 
 use Ramsey\Uuid\UuidInterface;
 
-final class RequestUuid implements RequestId
+final class PictureUuid implements PictureId
 {
     /**
      * @var UuidInterface
@@ -18,7 +18,7 @@ final class RequestUuid implements RequestId
      *
      * @param UuidInterface $uuid
      */
-    public function __construct(UuidInterface $uuid)
+    private function __construct(UuidInterface $uuid)
     {
         $this->uuid = $uuid;
     }
@@ -26,9 +26,9 @@ final class RequestUuid implements RequestId
     /**
      * @param  UuidInterface $uuid
      *
-     * @return RequestId
+     * @return PictureId
      */
-    public function fromUuid(UuidInterface $uuid): RequestId
+    public static function fromUuid(UuidInterface $uuid): PictureId
     {
         return new self($uuid);
     }
@@ -46,6 +46,6 @@ final class RequestUuid implements RequestId
      */
     public function __toString()
     {
-        return $this->uuid->toString();
+        return $this->toString();
     }
 }

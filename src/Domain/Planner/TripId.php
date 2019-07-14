@@ -13,7 +13,7 @@ interface TripId
      *
      * @return TripId
      */
-    public function fromUuid(UuidInterface $uuid): TripId;
+    public static function fromUuid(UuidInterface $uuid): TripId;
 
     /**
      * @return string

@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Domain\Planner;
+namespace Domain\Agency;
 
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class TripUuid implements TripId
+final class AgencyUuid implements AgencyId
 {
     /**
      * @var UuidInterface
@@ -24,17 +25,31 @@ final class TripUuid implements TripId
     }
 
     /**
-     * @param  UuidInterface $uuid
-     *
-     * @return TripId
+     * {@inheritDoc}
      */
-    public static function fromUuid(UuidInterface $uuid): TripId
+    public static function fromUuid(UuidInterface $uuid): AgencyId
     {
         return new self($uuid);
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
+     */
+    public static function fromString(string $uuid): AgencyId
+    {
+        return new self(Uuid::fromString($uuid));
+    }
+
+    /**
+     * @return AgencyId
+     */
+    public static function generate(): AgencyId
+    {
+        return self::fromUuid(Uuid::uuid4());
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function toString(): string
     {

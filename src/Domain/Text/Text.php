@@ -2,14 +2,10 @@
 
 declare(strict_types=1);
 
-namespace Domain;
+namespace Domain\Text;
 
-use LengthException;
-
-class FixedLengthString
+class Text
 {
-    protected const LENGTH = 255;
-
     /**
      * @var null|string
      */
@@ -20,7 +16,7 @@ class FixedLengthString
      *
      * @param null|string $value
      */
-    private function __construct(?string $value)
+    protected function __construct(?string $value)
     {
         $this->value = $value;
     }
@@ -30,10 +26,10 @@ class FixedLengthString
      *
      * @return static
      */
-    public static function fromValue(?string $value): self
+    public static function fromValue(?string $value): Text
     {
-        if (strlen($value) > self::LENGTH) {
-            throw new LengthException('Value cannot be greater than '.self::LENGTH.' characters.');
+        if (null !== $value && empty($value)) {
+            $value = null;
         }
 
         return new static($value);

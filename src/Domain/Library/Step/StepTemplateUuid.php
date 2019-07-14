@@ -2,11 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Domain\Request;
+namespace Domain\Library\Step;
 
+use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
-final class RequestUuid implements RequestId
+final class StepTemplateUuid implements StepTemplateId
 {
     /**
      * @var UuidInterface
@@ -18,23 +19,29 @@ final class RequestUuid implements RequestId
      *
      * @param UuidInterface $uuid
      */
-    public function __construct(UuidInterface $uuid)
+    private function __construct(UuidInterface $uuid)
     {
         $this->uuid = $uuid;
     }
 
     /**
-     * @param  UuidInterface $uuid
-     *
-     * @return RequestId
+     * {@inheritDoc}
      */
-    public function fromUuid(UuidInterface $uuid): RequestId
+    public static function fromUuid(UuidInterface $uuid): StepTemplateId
     {
         return new self($uuid);
     }
 
     /**
-     * @return string
+     * {@inheritDoc}
+     */
+    public static function fromString(string $uuid): StepTemplateId
+    {
+        return new self(Uuid::fromString($uuid));
+    }
+
+    /**
+     * {@inheritDoc}
      */
     public function toString(): string
     {
